@@ -2,14 +2,14 @@
 
 // https://msdn.microsoft.com/ru-ru/library/ms131187(v=vs.110).aspx
 
-namespace _20180313_Vector
+namespace _20180313_Task1_Vector
 {
-    class Vector : IEquatable<Vector>   // Vector - object type for comparison.
+    internal class Vector : IEquatable<Vector>   // Vector - object type for comparison.
     {
         // The coordinates of a point in three-dimensional space
-        public double X { get; set; }
-        public double Y { get; set; }
-        public double Z { get; set; }
+        internal double X { get; }
+        internal double Y { get; }
+        internal double Z { get; }
 
         public Vector(double x, double y, double z)
         {
@@ -19,12 +19,10 @@ namespace _20180313_Vector
                 {
                     throw new Exception("This is a test exception that occurs if x, y and z are less than 0\n");
                 }
-                else
-                {
-                    X = x;
-                    Y = y;
-                    Z = z;
-                }
+
+                X = x;
+                Y = y;
+                Z = z;
             }
             catch (Exception ex)
             {
@@ -33,16 +31,10 @@ namespace _20180313_Vector
         }
 
         // Overload the comparison operator ==
-        public static bool operator ==(Vector vector1, Vector vector2)
-        {
-            return Equals(vector1, vector2);
-        }
+        public static bool operator ==(Vector vector1, Vector vector2) => Equals(vector1, vector2);
 
         // Overload the comparison operator !=
-        public static bool operator !=(Vector vector1, Vector vector2)
-        {
-            return !Equals(vector1, vector2);
-        }
+        public static bool operator !=(Vector vector1, Vector vector2) => !Equals(vector1, vector2);
 
         // Overload the binary operator +
         public static Vector operator +(Vector vector1, Vector vector2)
@@ -70,7 +62,7 @@ namespace _20180313_Vector
 
         public override string ToString()
         {
-            return string.Format("({0}, {1}, {2})", X, Y, Z);
+            return $"({X}, {Y}, {Z})";
         }
 
         public bool Equals(Vector other)
@@ -88,9 +80,7 @@ namespace _20180313_Vector
                 return false;
             if (ReferenceEquals(this, obj))
                 return true;
-            if (obj.GetType() != GetType())
-                return false;
-            return Equals((Vector)obj);
+            return obj.GetType() == GetType() && Equals((Vector)obj);
         }
 
         public override int GetHashCode()
