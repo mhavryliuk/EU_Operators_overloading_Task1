@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("20180313_Task1_Vector")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("EPAM University")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("20180313_Task1_Vector")]
 [assembly: AssemblyCopyright("Copyright © Maksym Havryliuk 2018")]
 [assembly: AssemblyTrademark("")]

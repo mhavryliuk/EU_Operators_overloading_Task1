@@ -1,42 +1,54 @@
 ﻿using System;
 
-// https://msdn.microsoft.com/ru-ru/library/ms131187(v=vs.110).aspx
+// Interface IEquatable<T>: https://msdn.microsoft.com/ru-ru/library/ms131187(v=vs.110).aspx
 
 namespace _20180313_Task1_Vector
 {
-    internal class Vector : IEquatable<Vector>   // Vector - object type for comparison.
+    public class Vector : IEquatable<Vector>   // Vector - object type for comparison.
     {
         // The coordinates of a point in three-dimensional space
-        internal double X { get; }
-        internal double Y { get; }
-        internal double Z { get; }
+        public double X { get; }
+        public double Y { get; }
+        public double Z { get; }
 
+        /// <summary>
+        /// The constructor of the Vector class.
+        /// </summary>
+        /// <param name="x">The coordinate of the point along the x axis.</param>
+        /// <param name="y">The coordinate of the point along the y axis.</param>
+        /// <param name="z">The coordinate of the point along the z axis.</param>
         public Vector(double x, double y, double z)
         {
-            try
-            {
-                if (x < 0 && y < 0 && z < 0)
-                {
-                    throw new Exception("This is a test exception that occurs if x, y and z are less than 0\n");
-                }
+            if (x < 0 && y < 0 && z < 0)
+                throw new Exception("This is a test exception that occurs if x, y and z are less than 0\n");
 
-                X = x;
-                Y = y;
-                Z = z;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            X = x;
+            Y = y;
+            Z = z;
         }
 
-        // Overload the comparison operator ==
+        /// <summary>
+        /// Overload the comparison operator ==
+        /// </summary>
+        /// <param name="vector1">First vektor.</param>
+        /// <param name="vector2">First vektor.</param>
+        /// <returns>The result of comparing two vectors: true or false.</returns>
         public static bool operator ==(Vector vector1, Vector vector2) => Equals(vector1, vector2);
 
-        // Overload the comparison operator !=
+        /// <summary>
+        /// Overload the comparison operator !=
+        /// </summary>
+        /// <param name="vector1">First vektor.</param>
+        /// <param name="vector2">First vektor.</param>
+        /// <returns>The result of comparing two vectors: true or false.</returns>
         public static bool operator !=(Vector vector1, Vector vector2) => !Equals(vector1, vector2);
 
-        // Overload the binary operator +
+        /// <summary>
+        /// Overload the binary operator +
+        /// </summary>
+        /// <param name="vector1">First vektor.</param>
+        /// <param name="vector2">First vektor.</param>
+        /// <returns>The result of addition of two vectors.</returns>
         public static Vector operator +(Vector vector1, Vector vector2)
         {
             return new Vector(vector1.X + vector2.X,
@@ -44,7 +56,12 @@ namespace _20180313_Task1_Vector
                               vector1.Z + vector2.Z);
         }
 
-        // Overload the binary operator -
+        /// <summary>
+        /// Overload the binary operator -
+        /// </summary>
+        /// <param name="vector1">First vektor.</param>
+        /// <param name="vector2">First vektor.</param>
+        /// <returns>The result of subtraction of the second vector from the first vector.</returns>
         public static Vector operator -(Vector vector1, Vector vector2)
         {
             return new Vector(vector1.X - vector2.X,
@@ -52,7 +69,12 @@ namespace _20180313_Task1_Vector
                               vector1.Z - vector2.Z);
         }
 
-        // Overload the binary operator *
+        /// <summary>
+        /// Overload the binary operator *
+        /// </summary>
+        /// <param name="vector1">First vektor.</param>
+        /// <param name="vector2">First vektor.</param>
+        /// <returns>The result of multiplying two vectors.</returns>
         public static Vector operator *(Vector vector1, Vector vector2)
         {
             return new Vector(vector1.X * vector2.X,
@@ -60,11 +82,21 @@ namespace _20180313_Task1_Vector
                               vector1.Z * vector2.Z);
         }
 
+        /// <summary>
+        /// ToString() method allows you to display a vector as a string.
+        /// </summary>
+        /// <returns>Vector as a string.</returns>
         public override string ToString()
         {
             return $"({X}, {Y}, {Z})";
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        /// The Equals () method determines whether the given vector is equal to the current vector.
+        /// </summary>
+        /// <param name="other">Vector for verification.</param>
+        /// <returns>Result of checking.</returns>
         public bool Equals(Vector other)
         {
             if (other is null)
@@ -74,6 +106,11 @@ namespace _20180313_Task1_Vector
             return X.Equals(other.X) && Y.Equals(other.Y) && Z.Equals(other.Z);
         }
 
+        /// <summary>
+        /// Equals() method determines whether the given object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to check.</param>
+        /// <returns>Result of checking.</returns>
         public override bool Equals(object obj)
         {
             if (obj is null)
@@ -83,6 +120,10 @@ namespace _20180313_Task1_Vector
             return obj.GetType() == GetType() && Equals((Vector)obj);
         }
 
+        /// <summary>
+        /// GetHashCode () method to check the equality of the object.
+        /// </summary>
+        /// <returns>HashCode of the current object.</returns>
         public override int GetHashCode()
         {
             unchecked
